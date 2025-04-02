@@ -4,12 +4,12 @@ import cors from 'cors'
 import morgan from 'morgan'
 import authRouter from './routes/auth.routes.js'
 import taksRouter from './routes/task.routes.js'
-import { PORT } from './config.js'
+import { FRONTEND_URL, PORT } from './config.js'
 
 const app = express()
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174'],
+  origin: FRONTEND_URL,
   credentials: true
 }))
 app.use(morgan('dev'))
