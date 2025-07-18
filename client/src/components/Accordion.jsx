@@ -45,7 +45,7 @@ export default function AccordionUsage({ expanded, data, title, icon, color, tex
             
             {
               isTask ? 
-              data?.map((task, key) => {
+              data?.map((task) => {
                 return (
                   <TaskCard task={task} key={task.id_task}/>
                 )

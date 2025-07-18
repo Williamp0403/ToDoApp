@@ -120,12 +120,10 @@ export const useTasks = () => {
   }
 
   const formatDate = (dateString) => {
-    if(!dateString) return 'Sin fecha'
-    if (dateString.includes('T')) {
-      return dayjs(dateString).format('DD [de] MMMM [de] YYYY, h:mm A');
-    } else {
-      return dayjs(dateString).format('DD [de] MMMM, YYYY');
-    }
+    if (!dateString) return 'Sin fecha'
+
+    const hasTime = dateString.includes(':')
+    return dayjs(dateString).format(hasTime ? 'DD [de] MMMM [de] YYYY, h:mm A' : 'DD [de] MMMM, YYYY')
   }
 
   return { 

@@ -1,15 +1,17 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import morgan from 'morgan'
 import authRouter from './routes/auth.routes.js'
 import taksRouter from './routes/task.routes.js'
-import { FRONTEND_URL, PORT } from './config.js'
 
 const app = express()
+const PORT = process.env.PORT
 
 app.use(cors({
-  origin: FRONTEND_URL,
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
   credentials: true
 }))
 app.use(morgan('dev'))

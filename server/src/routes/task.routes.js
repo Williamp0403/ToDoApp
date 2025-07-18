@@ -16,5 +16,4 @@ router.put('/task-status/:id', authRequired, validateSchema(taskStatusSchema), t
 
 router.delete('/delete-task/:id', authRequired, deleteTask)
 
-
 export default router

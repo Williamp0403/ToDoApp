@@ -1,5 +1,4 @@
 import { useEffect } from "react"
-import { TaskCard } from "../components/TaskCard"
 import { useTasks } from "../context/TasksContext"
 import { Loading } from "../components/Loading.jsx"
 import AccordionUsage from "../components/Accordion.jsx"
@@ -8,9 +7,10 @@ import TodayOutlinedIcon from '@mui/icons-material/TodayOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EventBusyOutlinedIcon from '@mui/icons-material/EventBusyOutlined';
 import dayjs from "dayjs"
+import { ModalCreateTask } from "../components/ModalCreateTask.jsx"
 
 export function TasksPage () {
-  const { getTasks, tasks, setOpen, loading } = useTasks()
+  const { getTasks, tasks, setOpen, open, loading } = useTasks()
   const today = dayjs().format('YYYY-MM-DD')
 
   useEffect(() => {
@@ -37,8 +37,12 @@ export function TasksPage () {
   const unDatedTasks = tasks.filter(task =>  !task.due_date )
 
   return (
-    <section className="py-25 px-7 flex flex-col gap-4">
-      <h1 className="text-4xl font-bold">Mis Tareas</h1>
+    <section className="min-h-[calc(100vh-90px)] p-6 sm:p-10 flex flex-col gap-6">
+      <ModalCreateTask open={open} setOpen={setOpen} />
+      <div className="flex items-center justify-between">
+        <h1 className="sm:text-3xl text-2xl font-bold">Mis Tareas</h1>
+        <button onClick={() => setOpen(true)} className="py-2 px-3 text-sm sm:text-base bg-transparent text-green-400 border border-green-400 rounded-md font-bold hover:bg-green-400 hover:text-zinc-900 transition ease-in-out duration-500 cursor-pointer">+ Agregar tarea</button>
+      </div>
       {
         loading ? <Loading/>
         : isTasks && !loading ? 

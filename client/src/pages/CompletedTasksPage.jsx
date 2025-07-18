@@ -13,8 +13,8 @@ export function CompletedTasksPage () {
   const isTasksCompleted = tasks.some((task) => task.completed)
 
   return (
-    <section className="py-25 px-10 flex flex-col gap-4">
-      <h1 className="text-4xl font-bold">Tareas completadas</h1>
+    <section className="min-h-[calc(100vh-90px)] p-6 sm:p-10 flex flex-col gap-4">
+      <h1 className="sm:text-3xl text-2xl font-bold">Tareas completadas</h1>
         {
           loading ? <Loading/>
           : isTasksCompleted && !loading ? 

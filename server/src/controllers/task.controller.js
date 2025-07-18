@@ -1,4 +1,4 @@
-import { queryCreateTask, queryDeleteTask, queryGetTasks, queryUpdateTask, queryTaskStatus } from "../models/mysql.js"
+import { queryGetTasks, queryCreateTask, queryUpdateTask, queryTaskStatus,queryDeleteTask } from "../models/task.models.js"
 
 export const getTasks = async (req,res) => {
   try {
@@ -25,8 +25,6 @@ export const updateTask = async (req,res) => {
     const response = await queryUpdateTask(req)
 
     if(!response) return res.status(404).json({ message: 'Tarea no encontrada.' })  
-
-    if(response.message == "No se realizaron cambios en la tarea.") return res.status(200).json({ message: response.message })
 
     res.json({ message: 'Tarea actualizada correctamente.' })
   } catch (e) {

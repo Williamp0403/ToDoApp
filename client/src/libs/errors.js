@@ -3,6 +3,10 @@ export function handlingErrors (e) {
     return "Los datos ingresados son incorrectos."
   }
 
+  if (e.response?.status === 401 ) {
+    return  e.response.data.message || "Usuario o contraseña incorrecta"
+  }
+
   if(e.response?.status === 409) { 
     return e.response.data.message || "El nombre de usuario ya existe."
   }

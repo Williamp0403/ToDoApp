@@ -23,18 +23,29 @@ export function TaskCard ({ task }) {
       <DeleteTaskModal open={openDeleteModal} setOpen={setOpenDeleteModal} task={task}/>
       <ModalUpdateTask open={openUpdateModal} setOpen={setOpenUpdateModal} task={task}/>
       <div key={task.id_task} className={`flex flex-col justify-between gap-3 max-w-sm w-full p-4 border-2 rounded-lg hover:bg-zinc-800 ${ task.completed ? 'border-green-700': 'border-zinc-600' }`}>
-        <div className="flex justify-between"> 
-          <div className="flex gap-x-2 items-center">
-            <label htmlFor={`task-checkbox-${task.id_task}`} className="flex flex-row items-center gap-2.5 dark:text-white light:text-black cursor-pointer">
+        <div className="flex justify-between w-full"> 
+          <div className="flex gap-x-2 items-center min-w-0 flex-1">
+           <label htmlFor={`task-checkbox-${task.id_task}`} className="flex-shrink-0 flex items-center gap-2.5">
               <input onChange={() => editTask(task)} id={`task-checkbox-${task.id_task}`} type="checkbox" className="peer hidden" checked={task.completed}/>
               <div htmlFor={`task-checkbox-${task.id_task}`} className="h-5 w-5 flex rounded-xl border border-[#838383] light:bg-[#e8e8e8] dark:bg-[#212121] peer-checked:bg-green-500 peer-checked:border-green-500  transition"> <svg fill="none" viewBox="0 0 24 24" className="w-5 h-5 light:stroke-[#e8e8e8] dark:stroke-[#212121]" xmlns="http://www.w3.org/2000/svg" > <path d="M4 12.6111L8.92308 17.5L20 6.5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ></path> </svg> </div>
-            </label>
+            </label>      
             <Tooltip title={<span style={{ fontSize: '14px' }}>Ver Detalles de la Tarea</span>} placement="top" arrow>
-              <h1 onClick={() => setOpenViewModal(true)} className={`font-bold truncate w-full max-w-[200px] leading-tight text-lg  cursor-pointer ${ task.completed ? 'text-green-500 line-through': 'text-slate-200'}`}>{task.title}</h1>
+              <h1 
+                onClick={() => setOpenViewModal(true)} 
+                className={`font-bold truncate text-lg cursor-pointer min-w-0 ${
+                  task.completed ? 'text-green-500 line-through' : 'text-slate-200'
+                }`}
+              >
+                {task.title}
+              </h1>
             </Tooltip>
-          </div>
-          <div>
-            { task.name && <p className={`${CATEGORIES[task.id_category - 1].color} py-[3px] px-3 text-xs rounded-full font-bold`} >{task.name}</p>}    
+          </div>     
+          <div className="flex-shrink-0 ml-2">
+            {task.name && (
+              <p className={`${CATEGORIES[task.id_category - 1].color} py-[3px] px-3 text-xs rounded-full font-bold whitespace-nowrap`}>
+                {task.name}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex">
