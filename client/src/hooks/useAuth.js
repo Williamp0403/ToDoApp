@@ -15,24 +15,15 @@ export const useAuth = () => {
 
   useEffect(() => {
     const checkToken = async () => {
-      const cookies = Cookie.get();
-
-      if (!cookies.token) {
-        setIsAuthenticated(false);
-        setLoading(false);
-        setUser(null);
-        return;
-      }
-
-      try {
-        const res = await verifyRequest();
-        setIsAuthenticated(true);
-        setUser(res.data);
+       try {
+        const response = await verifyRequest()
+        setIsAuthenticated(true)
+        setUser(response.data)
       } catch (e) {
-        setIsAuthenticated(false);
-        setUser(null);
+        setIsAuthenticated(false)
+        setUser(null)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     };
 

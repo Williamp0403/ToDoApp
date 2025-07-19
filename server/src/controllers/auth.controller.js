@@ -5,7 +5,12 @@ export const register = async (req,res) => {
   try {
     const response = await queryRegister(req.body)
     if(!response) return res.status(409).json({ message: 'El nombre de usuario ya está en uso. Por favor, elige otro.' })
-    res.cookie('token', response.token, { maxAge: 7 * 24 * 60 * 60 * 1000 }).send(response.user)
+    res.cookie('token', response.token, { 
+      httpOnly: true, 
+      secure: true, 
+      sameSite: 'None', 
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    }).send(response.user)
   } catch (e) {
     console.log(e)
     return res.status(500).json({ message: 'Hubo un problema en el servidor. Por favor, intenta de nuevo más tarde.' })
@@ -16,7 +21,12 @@ export const login = async (req,res) => {
   try {
     const response = await queryLogin(req.body)
     if(!response) return res.status(401).json({ message: 'Usuario o contraseña incorrecta' })
-    res.cookie('token', response.token, { maxAge: 7 * 24 * 60 * 60 * 1000 }).send(response.user)
+     res.cookie('token', response.token, { 
+      httpOnly: true, 
+      secure: true, 
+      sameSite: 'None', 
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    }).send(response.user)
   } catch (e) {
     console.log(e)
     return res.status(500).json({ message: 'Hubo un problema en el servidor. Por favor, intenta de nuevo más tarde.' })
@@ -25,9 +35,12 @@ export const login = async (req,res) => {
 
 export const logout = (req,res) => {
   try {
-    res.cookie('token', '', {
-      expires: new Date(0)
-    }).sendStatus(200)
+    res.cookie('token', '', { 
+        httpOnly: true, 
+        secure: true, 
+        sameSite: 'None', 
+        expires: new Date(0)
+      }).sendStatus(200)
   } catch (e) {
     return res.status(500).json({ message: 'Hubo un problema en el servidor. Por favor, intenta de nuevo más tarde.' })
   }
